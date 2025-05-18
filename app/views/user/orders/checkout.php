@@ -1,6 +1,5 @@
 <main class="checkout-page">
     <div class="checkout-container">
-        <!-- Cột trái: Thông tin giao hàng -->
         <div class="delivery-details">
             <h2>Thông Tin Giao Hàng</h2>
             <form method="POST" action="checkout-delivery">

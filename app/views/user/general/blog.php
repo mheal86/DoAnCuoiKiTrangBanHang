@@ -7,7 +7,6 @@
                     alt="Bài viết 1">
                 <h3>Thương hiệu thời trang nữ L SOUL “đốn tim” mọi cô nàng</h3>
                 <p>By admin • 5 December, 2024</p>
-                <!-- Thêm đoạn văn mô tả ngắn về bài viết -->
                 <p class="preview-text">Từ một cửa hàng thời trang nhỏ trong hẻm, L Soul đã vươn lên thành thương hiệu
                     được...</p>
                 <!-- Thêm mục READ MORE -->

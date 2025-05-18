@@ -3,7 +3,6 @@
 <div class="form-container">
     <h2 class="form-title">Cập Nhật Mật Khẩu</h2>
     <form class="customer-form" action="" method="POST">
-        <!-- Email -->
         <div class="input-group">
             <label for="oldPassword">Mật khẩu cũ</label>
             <div class="input-wrapper">

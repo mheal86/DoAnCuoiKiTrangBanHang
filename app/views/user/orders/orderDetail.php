@@ -25,7 +25,6 @@ switch ($order['status']) {
 ?>
 
 <div class="order-container">
-    <!-- Order Header -->
     <div class="order-header">
         <h2>Đơn hàng #<?php echo $order['orderId'] ?></h2>
         <span class="status <?php echo $class ?>"><?php echo $status ?></span>

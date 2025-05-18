@@ -63,7 +63,6 @@
         margin: 8px 0;
         border: 1px solid #ccc;
         width: 45%;
-        /* Làm thanh chọn số lượng ngắn lại */
         font-size: 14px;
     }
 

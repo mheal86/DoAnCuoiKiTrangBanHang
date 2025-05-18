@@ -6,7 +6,6 @@
     <button onclick="window.location='shop'">Mua ngay</button>
 </section>
 
-<!-- Sản phẩm nổi bật -->
 <section id="product1" class="section-p1">
     <h2> Sản Phẩm Nổi Bật </h2>
     <p> Bộ Sưu Tập Mùa Hè Thiết Kế Hiện Đại</p>

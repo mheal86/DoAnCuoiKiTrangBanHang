@@ -2,7 +2,6 @@
 
 <div class="customer-container">
     <div class="customer-management">
-        <!-- Left Section: Customer Info -->
         <div class="customer-info">
             <img src="<?php echo $user['image'] ?>" alt="Avatar">
             <h2><?php echo $user['userName'] ?></h2>

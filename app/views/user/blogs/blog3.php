@@ -1,7 +1,7 @@
 <style>
   .blog-container {
     border: 1px solid #e0e0e0;
-    /* Viền nhẹ cho card */
+    /* Đường viền xung quanh card */
     border-radius: 8px;
     /* Bo góc card */
     overflow: hidden;

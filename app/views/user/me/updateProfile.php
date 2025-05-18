@@ -3,7 +3,6 @@
 <div class="form-container">
     <h2 class="form-title">Cập Nhật Thông Tin</h2>
     <form class="customer-form" action="" method="POST" enctype="multipart/form-data">
-        <!-- Họ và tên -->
         <div class="input-group">
             <label for="userName">Họ và Tên</label>
             <div class="input-wrapper">
