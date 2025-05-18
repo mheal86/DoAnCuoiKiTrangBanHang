@@ -4,7 +4,7 @@
     <p><strong>LSOUL</strong>, thương hiệu quần áo thiết kế đã ghi dấu ấn trong làng thời trang chuyên nghiệp bằng mẫu
         mã và chất lượng. LSOUL là nơi mà các ý tưởng độc đáo được ra đời, là ngôi nhà chung quy tụ những con người có
         tình yêu và niềm đam mê mãnh liệt với thời trang. Với mong muốn tạo ra những bộ trang phục thời thượng dành cho
-        những cô gái có tinh thần phóng khoáng, cá tính và đặc biệt yêu thích từng đường cong trên cơ thể. <span
+        những cô gái có tinh thần phóng khoáng, cá tính và đặc biệt yêu thích từng đường cong trên cơ thể.<span
             class="highlight">“Nữ tính nhưng vẫn cá tính”</span> mô tả các thiết kế của LSOUL và cũng là kim chỉ nam
         trên hành trình phát triển của thương hiệu.</p>
     <h2 class="section-title">Khởi đầu</h2>

@@ -20,7 +20,7 @@
 
             // Check if passwords match
             if (password !== confirmedPassword) {
-                e.preventDefault(); // Prevent form submission
+                e.preventDefault(); 
                 showToast('Xác nhận mật khẩu không chính xác');
                 $('#password').focus();
             }

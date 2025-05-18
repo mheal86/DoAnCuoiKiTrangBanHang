@@ -63,7 +63,7 @@
         $('#btn-make-order').on('click', function (e) {
             e.preventDefault();
             $('#paymentMethod').val('cod');
-            $('#makeOrder').submit();
+            $('#makeOrder').submit(); 
 
 
         })

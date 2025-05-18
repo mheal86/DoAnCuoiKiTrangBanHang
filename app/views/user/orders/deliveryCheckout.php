@@ -26,7 +26,7 @@
             <?php endforeach; ?>
 
             <div class="discount-code">
-                <input type="text" placeholder="Nhập mã giảm giá">
+                <input type="text" placeholder="Nhập mã giảm giá ">
                 <button type="button">Áp dụng</button>
             </div>
 

@@ -3,7 +3,6 @@
     <aside class="sidebar">
         <h2>Bộ lọc sản phẩm</h2>
 
-        <!-- Thanh tìm kiếm nhỏ gọn -->
         <label for="search">Tìm kiếm:</label>
         <input type="text" id="search" placeholder="Tìm kiếm sản phẩm...">
 

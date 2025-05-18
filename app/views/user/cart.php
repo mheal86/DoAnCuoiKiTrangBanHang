@@ -63,7 +63,7 @@
         <?php endforeach; ?>
 
         <div class="promo-code">
-            <input type="text" placeholder="Nhập mã giảm giá">
+            <input type="text" placeholder="Nhập mã giảm giá ">
             <button>Áp dụng</button>
         </div>
 

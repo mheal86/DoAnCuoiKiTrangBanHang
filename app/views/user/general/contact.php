@@ -1,5 +1,4 @@
 <main class="contact-container">
-    <!-- Thông tin liên hệ -->
     <section class="contact-info">
         <h2> Ghé thăm một trong những địa điểm của chúng tôi</h2>
         <h3> Trụ sở chính</h3>

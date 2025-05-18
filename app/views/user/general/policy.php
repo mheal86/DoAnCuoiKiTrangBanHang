@@ -209,7 +209,7 @@
         if (activeButton) activeButton.classList.add('active');
     }
 
-    //Tuỳ chỉnh manu điều hướng khi chuyển sang giao diện điện thoại
+    //Tuỳ chỉnh menu điều hướng khi chuyển sang giao diện điện thoại
     const menuIcon = document.getElementById("menu-icon");
     const mobileMenu = document.getElementById("mobile-menu");
     const closeBtn = document.getElementById("close-btn");
