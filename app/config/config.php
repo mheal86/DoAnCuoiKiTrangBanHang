@@ -4,5 +4,5 @@ define("DB_NAME", "fashion_shop");
 define("USERNAME", "root");
 define("PASSWORD", "");
 
-define("BASE_PATH", "/FashionShop");
+define("BASE_PATH", "/DoAnCuoiKiTrangBanHang");
 ?>
