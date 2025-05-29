@@ -35,11 +35,6 @@ class UserController
 
     public function addUser()
     {
-        if (!$this->validateCSRFToken($_POST['csrf_token'])) {
-            setErrorMessage('Invalid request');
-            header('Location: error');
-            exit();
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $view = 'app/views/admin/users/addUser.php';
             $action = 'add';
@@ -93,24 +88,32 @@ class UserController
 
             $imagePath = '';
             if (!empty($_FILES['image']['name'])) {
-                $this->validateFileUpload($_FILES['image']);
-                $imagePath = $this->handleImageUpload($_FILES['image']);
+                $uploadDir = 'uploads/users/';
+
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $tmpName = $_FILES['image']['tmp_name'];
+                $uniqueName = uniqid() . '-' . basename($_FILES['image']['name']);
+                $destination = $uploadDir . $uniqueName;
+
+                if (move_uploaded_file($tmpName, $destination)) {
+                    $imagePath = $destination;
+                    $user = $this->userModel->getUserById($userId);
+                    if (file_exists($user['image'])) {
+                        unlink($user['image']);
+                    }
+                }
             }
 
-            try {
-                $result = $this->userModel->updateUser($userId, $userName, $phone, $city, $district, $ward, $street, $imagePath);
+            $result = $this->userModel->updateUser($userId, $userName, $phone, $city, $district, $ward, $street, $imagePath);
 
-                if (is_int($result)) {
-                    setSuccessMessage('Cập nhật người dùng thành công');
-                    header('Location: users');
-                } else {
-                    setErrorMessage('Cập nhật không thành công');
-                }
-            } catch (Exception $e) {
-                error_log("Error updating user: " . $e->getMessage());
-                setErrorMessage('An error occurred while updating user');
-                header('Location: error');
-                exit();
+            if (is_int($result)) {
+                setSuccessMessage('Cập nhật người dùng thành công');
+                header('Location: users');
+            } else {
+                setErrorMessage('Cập nhật không thành công');
             }
         } else {
             header('Location: notfound');
@@ -262,61 +265,6 @@ class UserController
                     header('Location: update-password');
                 }
             }
-        }
-    }
-
-    private function validateCSRFToken($token)
-    {
-        // Implement your CSRF token validation logic here
-        return true; // Placeholder return, actual implementation needed
-    }
-
-    private function validateFileUpload($file)
-    {
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-
-        if (!in_array($file['type'], $allowedTypes)) {
-            throw new InvalidArgumentException('Invalid file type');
-        }
-
-        if ($file['size'] > $maxSize) {
-            throw new InvalidArgumentException('File too large');
-        }
-    }
-
-    private function handleImageUpload($file)
-    {
-        $uploadDir = Config::get('upload_dir') . '/users/';
-        
-        if (!is_dir($uploadDir)) {
-            if (!mkdir($uploadDir, 0777, true)) {
-                throw new RuntimeException('Failed to create upload directory');
-            }
-        }
-        
-        $uniqueName = uniqid() . '-' . basename($file['name']);
-        $destination = $uploadDir . $uniqueName;
-        
-        if (!move_uploaded_file($file['tmp_name'], $destination)) {
-            throw new RuntimeException('Failed to move uploaded file');
-        }
-        
-        return $destination;
-    }
-
-    private function validateUserInput($email, $password, $userName)
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException('Invalid email format');
-        }
-        
-        if (strlen($password) < 8) {
-            throw new InvalidArgumentException('Password must be at least 8 characters');
-        }
-        
-        if (empty($userName)) {
-            throw new InvalidArgumentException('Username is required');
         }
     }
 }
