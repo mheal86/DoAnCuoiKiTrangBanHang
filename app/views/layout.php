@@ -13,7 +13,6 @@ $messages = getAllMessages();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <title>Lsoul Fashion</title>
-    <link rel="stylesheet" href="<?php echo BASE_PATH . '/app/public/css/style3.css' ?>">
     <link rel="stylesheet" href="<?php echo BASE_PATH . '/app/public/css/style.css' ?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -176,56 +175,6 @@ $messages = getAllMessages();
 </body>
 
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion shop</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <style>
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease, bottom 0.5s ease;
-            z-index: 9999;
-        }
-
-        .toast.hidden {
-            bottom: 10px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .toast.visible {
-            bottom: 20px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .toast.success {
-            background-color: #78c27f;
-        }
-
-        .toast.error {
-            background-color: #f44336;
-        }
-    </style>
-</head>
-
-<body>
-
     <?php require_once 'app/views/common/header.php' ?>
 
     <?php require_once $view ?>
@@ -332,4 +281,4 @@ $messages = getAllMessages();
 
 </body>
 
-</html> -->
+</html>
