@@ -28,8 +28,6 @@ class ProductModel
 
     public function getProductDetailById($productId)
     {
-        try {
-        $this->conn->beginTransaction();
         $stmt = $this->conn->prepare("SELECT *, views + 1 AS updatedViews
                                             FROM products
                                             INNER JOIN categories ON categories.categoryId = products.categoryId 
@@ -39,29 +37,22 @@ class ProductModel
         $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
         $stmt->execute();
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$product) {
-            $this->conn->rollBack();
-            return null;
-        }
+
         $product['images'] = $this->productImageModel->getAllProductImageByProductId($productId);
 
-        
+        // Update views
         $updateStmt = $this->conn->prepare("UPDATE products SET views = views + 1 WHERE productId = :productId");
         $updateStmt->bindParam(':productId', $productId, PDO::PARAM_INT);
         $updateStmt->execute();
 
         return $product;
-    } catch (Exception $e) {
-        $this->conn->rollBack();
-        return null;
     }
-}
 
     public function getAllProducts($params = [])
     {
         $defaults = [
-            'page' => 1,
-            'limit' => 9,
+            // 'page' => 1,
+            // 'limit' => 9,
             'order' => 'desc',
             'order_by' => 'createdAt',
             'search' => '',
@@ -72,15 +63,15 @@ class ProductModel
 
         $params = array_merge($defaults, $params);
 
-         $page = (int) $params['page'];
-        $limit = (int) $params['limit'];
+        // $page = (int) $params['page'];
+        // $limit = (int) $params['limit'];
         $order = strtoupper($params['order']) === 'DESC' ? 'DESC' : 'ASC';
         $order_by = !empty($params['order_by']) ? $params['order_by'] : 'createdAt';
         $search = $params['search'];
         $categoryId = $params['categoryId'];
         $price_start = $params['price_start'];
         $price_end = $params['price_end'];
-        $skip = ($page - 1) * $limit;
+        // $skip = ($page - 1) * $limit;
 
         $query = "SELECT * FROM products INNER JOIN categories ON products.categoryId = categories.categoryId";
         $conditions = [];
@@ -113,8 +104,8 @@ class ProductModel
         foreach ($bindings as $key => $value) {
             $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
         }
-         $stmt->bindValue(':skip', $skip, PDO::PARAM_INT);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        // $stmt->bindValue(':skip', $skip, PDO::PARAM_INT);
+        // $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 
         $stmt->execute();
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -205,7 +196,7 @@ class ProductModel
                     foreach ($images as $image) {
                         $result = $this->productImageModel->addProductImage($productId, $image);
                         if (!$result) {
-                            throw new Exception('Thêm ảnh thất bại');
+                            throw new Exception('Failed to add image');
                         }
                     }
                 }
@@ -244,7 +235,7 @@ class ProductModel
                     foreach ($images as $image) {
                         $result = $this->productImageModel->addProductImage($productId, $image);
                         if (!$result) {
-                            throw new Exception('Thêm ảnh thất bại');
+                            throw new Exception('Failed to add image');
                         }
                     }
                 }
