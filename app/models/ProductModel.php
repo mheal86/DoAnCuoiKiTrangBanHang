@@ -58,72 +58,76 @@ class ProductModel
 }
 
     public function getAllProducts($params = [])
-    {
-        $defaults = [
-            'page' => 1,
-            'limit' => 9,
-            'order' => 'desc',
-            'order_by' => 'createdAt',
-            'search' => '',
-            'categoryId' => null,
-            'price_start' => null,
-            'price_end' => null,
-        ];
+{
+    $defaults = [
+        'page' => 1,
+        'limit' => 9,
+        'order' => 'desc',
+        'order_by' => 'createdAt',
+        'search' => '',
+        'categoryId' => null,
+        'price_start' => null,
+        'price_end' => null,
+    ];
 
-        $params = array_merge($defaults, $params);
+    $params = array_merge($defaults, $params);
 
-         $page = (int) $params['page'];
-        $limit = (int) $params['limit'];
-        $order = strtoupper($params['order']) === 'DESC' ? 'DESC' : 'ASC';
-        $order_by = !empty($params['order_by']) ? $params['order_by'] : 'createdAt';
-        $search = $params['search'];
-        $categoryId = $params['categoryId'];
-        $price_start = $params['price_start'];
-        $price_end = $params['price_end'];
-        $skip = ($page - 1) * $limit;
+    $page = (int) $params['page'];
+    $limit = (int) $params['limit'];
+    $order = strtoupper($params['order']) === 'DESC' ? 'DESC' : 'ASC';
+    $order_by = !empty($params['order_by']) ? $params['order_by'] : 'createdAt';
+    $search = $params['search'];
+    $categoryId = $params['categoryId'];
+    $price_start = $params['price_start'];
+    $price_end = $params['price_end'];
+    $skip = ($page - 1) * $limit;
 
-        $query = "SELECT * FROM products INNER JOIN categories ON products.categoryId = categories.categoryId";
-        $conditions = [];
-        $bindings = [];
+    $query = "SELECT * FROM products INNER JOIN categories ON products.categoryId = categories.categoryId";
+    $conditions = [];
+    $bindings = [];
 
-        if ($categoryId !== null) {
-            $conditions[] = "products.categoryId = :categoryId";
-            $bindings[':categoryId'] = $categoryId;
-        }
-        if (!empty($search)) {
-            $conditions[] = "products.productName LIKE :search";
-            $bindings[':search'] = '%' . $search . '%';
-        }
-        if ($price_start !== null) {
-            $conditions[] = "products.price >= :price_start";
-            $bindings[':price_start'] = $price_start;
-        }
-        if ($price_end !== null) {
-            $conditions[] = "products.price <= :price_end";
-            $bindings[':price_end'] = $price_end;
-        }
-
-        if (!empty($conditions)) {
-            $query .= " WHERE " . implode(" AND ", $conditions);
-        }
-
-        $query .= " ORDER BY products.$order_by $order, productId DESC";
-
-        $stmt = $this->conn->prepare($query);
-        foreach ($bindings as $key => $value) {
-            $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
-        }
-         $stmt->bindValue(':skip', $skip, PDO::PARAM_INT);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-
-        $stmt->execute();
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($products as $key => $product) {
-            $products[$key]['images'] = $this->productImageModel->getAllProductImageByProductId($product['productId']);
-        }
-        return $products;
+    if ($categoryId !== null) {
+        $conditions[] = "products.categoryId = :categoryId";
+        $bindings[':categoryId'] = $categoryId;
     }
+    if (!empty($search)) {
+        $conditions[] = "products.productName LIKE :search";
+        $bindings[':search'] = '%' . $search . '%';
+    }
+    if ($price_start !== null) {
+        $conditions[] = "products.price >= :price_start";
+        $bindings[':price_start'] = $price_start;
+    }
+    if ($price_end !== null) {
+        $conditions[] = "products.price <= :price_end";
+        $bindings[':price_end'] = $price_end;
+    }
+
+    if (!empty($conditions)) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+    $query .= " ORDER BY products.$order_by $order, productId DESC LIMIT :limit OFFSET :skip";
+
+    $stmt = $this->conn->prepare($query);
+
+    foreach ($bindings as $key => $value) {
+        $stmt->bindValue($key, $value, is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+    }
+
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':skip', $skip, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($products as $key => $product) {
+        $products[$key]['images'] = $this->productImageModel->getAllProductImageByProductId($product['productId']);
+    }
+
+    return $products;
+}
+
 
     public function getLatestProducts($limit = 4)
     {

@@ -4,8 +4,7 @@ if (!isset($page))
 ?>
 <section id="header">
     <div class="header-container">
-        <a
-            href="https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1536/https://lsoul.b-cdn.net/wp-content/uploads/2024/10/500-X-100-1536x307.png">
+       <a href="<?php echo BASE_PATH . '/'; ?>">
             <img src="https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_1536/https://lsoul.b-cdn.net/wp-content/uploads/2024/10/500-X-100-1536x307.png"
                 alt="Logo" style="max-height: 50px;">
         </a>

@@ -58,15 +58,12 @@
     $(document).ready(function () {
         $('#btn-return').on('click', function (e) {
             e.preventDefault();
-            alert('hello');
-        })
+            window.location = 'checkout'; // Chuyển hướng về trang checkout
+        });
         $('#btn-make-order').on('click', function (e) {
             e.preventDefault();
             $('#paymentMethod').val('cod');
             $('#makeOrder').submit(); 
-
-
-        })
-
-    })
+        });
+    });
 </script>
